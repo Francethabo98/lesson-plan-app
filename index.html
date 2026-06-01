@@ -10,8 +10,7 @@
     h1 { color: #4f46e5; text-align: center; }
     input, textarea, button { width: 100%; padding: 12px; margin: 8px 0; border: 1px solid #ddd; border-radius: 8px; font-size: 16px; box-sizing: border-box; }
     button { background: #4f46e5; color: white; font-weight: bold; border: none; cursor: pointer; }
-    button:disabled { background: #9ca3af; }
-    #result { white-space: pre-wrap; background: white; padding: 16px; border-radius: 8px; margin-top: 16px; border: 1px solid #e5e7eb; }
+    #result { white-space: pre-wrap; background: white; padding: 16px; border-radius: 8px; margin-top: 16px; border: 1px solid #e5e7eb; line-height: 1.6; }
   </style>
 </head>
 <body>
@@ -20,16 +19,15 @@
   <input id="grade" placeholder="Grade (e.g. Grade 5)">
   <input id="subject" placeholder="Subject (e.g. Math)">
   <textarea id="topic" placeholder="Topic (e.g. Fractions)" rows="3"></textarea>
-  <button id="generateBtn" onclick="generatePlan()">Generate Lesson Plan</button>
+  <button onclick="generatePlan()">Generate Lesson Plan</button>
   
   <div id="result"></div>
 
   <script>
-    async function generatePlan() {
+    function generatePlan() {
       const grade = document.getElementById('grade').value;
       const subject = document.getElementById('subject').value;
       const topic = document.getElementById('topic').value;
-      const btn = document.getElementById('generateBtn');
       const result = document.getElementById('result');
       
       if (!grade || !subject || !topic) {
@@ -37,12 +35,47 @@
         return;
       }
       
-      btn.disabled = true;
-      btn.innerText = 'Generating...';
-      result.innerText = 'App is ready! Next we add the Claude API key to make it work.';
-      btn.disabled = false;
-      btn.innerText = 'Generate Lesson Plan';
+      const plan = `LESSON PLAN: ${topic.toUpperCase()}
+
+Grade: ${grade}
+Subject: ${subject}
+Duration: 45 minutes
+
+1. LEARNING OBJECTIVES
+   By the end of this lesson, learners will be able to:
+   - Define and explain ${topic}
+   - Apply ${topic} to solve real-world problems
+   - Demonstrate understanding through activities
+
+2. MATERIALS NEEDED
+   - Whiteboard/Markers
+   - Learner notebooks
+   - ${subject} textbook
+   - Visual aids for ${topic}
+
+3. LESSON INTRODUCTION - 5 min
+   Hook: Ask learners "What do you know about ${topic}?"
+   Connect to prior knowledge in ${subject}.
+
+4. MAIN ACTIVITY - 25 min
+   Step 1: Teacher explains ${topic} with examples - 10 min
+   Step 2: Guided practice together - 10 min  
+   Step 3: Learners work in pairs on ${topic} problems - 5 min
+
+5. ASSESSMENT - 10 min
+   Quick quiz: 3 questions on ${topic}
+   Observe learners during pair work
+
+6. CLOSURE - 5 min
+   Recap: "Today we learned ${topic}"
+   Homework: Practice ${topic} from textbook p.__
+
+7. TEACHER REFLECTION NOTES
+   What worked well?
+   What will I change next time?`;
+      
+      result.innerText = plan;
     }
   </script>
 </body>
-</html>
+  </html>
